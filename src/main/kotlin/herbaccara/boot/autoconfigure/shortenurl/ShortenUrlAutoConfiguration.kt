@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import herbaccara.shortenurl.BitlyService
-import herbaccara.shortenurl.NaverShortUrlService
+import herbaccara.shortenurl.NaverShortenUrlService
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -52,11 +52,11 @@ class ShortenUrlAutoConfiguration {
             @Qualifier("shortenUrlRestTemplate") restTemplate: RestTemplate,
             @Qualifier("shortenUrlObjectMapper") objectMapper: ObjectMapper,
             properties: NaverShortenUrlProperties
-        ): NaverShortUrlService {
+        ): NaverShortenUrlService {
             if (properties.clientId.isEmpty()) throw NullPointerException()
             if (properties.clientSecret.isEmpty()) throw NullPointerException()
 
-            return NaverShortUrlService(restTemplate, objectMapper, properties)
+            return NaverShortenUrlService(restTemplate, objectMapper, properties)
         }
     }
 

@@ -1,6 +1,6 @@
 package herbaccara.shortenurl
 
-interface ShortUrlService {
+interface ShortenUrlService {
 
     fun shorten(url: String): String
 }

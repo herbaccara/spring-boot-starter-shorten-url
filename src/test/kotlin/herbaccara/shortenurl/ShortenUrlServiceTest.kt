@@ -12,20 +12,20 @@ import org.springframework.test.context.TestPropertySource
     ]
 )
 @TestPropertySource(locations = ["classpath:application.yml"])
-class ShortUrlServiceTest {
+class ShortenUrlServiceTest {
 
     @Autowired
-    lateinit var shortUrlServices: List<ShortUrlService>
+    lateinit var shortenUrlServices: List<ShortenUrlService>
 
     @Autowired
-    lateinit var naverShortUrlService: NaverShortUrlService
+    lateinit var naverShortenUrlService: NaverShortenUrlService
 
     @Autowired
     lateinit var btlyService: BitlyService
 
     @Test
     fun naverShortUrlService() {
-        val convert = naverShortUrlService.shorten("https://google.com")
+        val convert = naverShortenUrlService.shorten("https://google.com")
         println()
     }
 

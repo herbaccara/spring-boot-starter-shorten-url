@@ -13,7 +13,7 @@ class BitlyService(
     private val restTemplate: RestTemplate,
     private val objectMapper: ObjectMapper,
     private val properties: BitlyProperties
-) : ShortUrlService {
+) : ShortenUrlService {
 
     override fun shorten(url: String): String {
         val uri = "https://api-ssl.bitly.com/v4/shorten"

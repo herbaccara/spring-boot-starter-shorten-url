@@ -10,13 +10,12 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.postForObject
-import java.util.*
 
-class NaverShortUrlService(
+class NaverShortenUrlService(
     private val restTemplate: RestTemplate,
     private val objectMapper: ObjectMapper,
     private val properties: NaverShortenUrlProperties
-) : ShortUrlService {
+) : ShortenUrlService {
 
     override fun shorten(url: String): String {
         val uri = "https://openapi.naver.com/v1/util/shorturl"
