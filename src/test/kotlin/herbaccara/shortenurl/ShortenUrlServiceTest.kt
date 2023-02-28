@@ -23,6 +23,21 @@ class ShortenUrlServiceTest {
     @Autowired
     lateinit var btlyService: BitlyService
 
+    private fun shorten(url: String): String? {
+        for (shortenUrlService in shortenUrlServices.shuffled()) {
+            println(shortenUrlService::class.java.simpleName)
+            val s = runCatching { shortenUrlService.shorten(url) }.getOrNull()
+            if (s != null) return s
+        }
+        return null
+    }
+
+    @Test
+    fun shortenUrlServices() {
+        val shorten = shorten("https://google.com")
+        println()
+    }
+
     @Test
     fun naverShortUrlService() {
         val convert = naverShortenUrlService.shorten("https://google.com")
