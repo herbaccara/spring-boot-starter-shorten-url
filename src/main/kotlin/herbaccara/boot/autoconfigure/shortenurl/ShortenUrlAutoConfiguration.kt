@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import herbaccara.shortenurl.BitlyService
 import herbaccara.shortenurl.NaverShortenUrlService
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -21,7 +21,8 @@ import java.util.*
 @AutoConfiguration
 class ShortenUrlAutoConfiguration {
 
-    @Bean("shortenUrlObjectMapper")
+    @Bean
+    @ConditionalOnMissingBean(ObjectMapper::class)
     fun objectMapper(): ObjectMapper {
         return jacksonObjectMapper().apply {
             findAndRegisterModules()
@@ -29,10 +30,9 @@ class ShortenUrlAutoConfiguration {
         }
     }
 
-    @Bean("shortenUrlRestTemplate")
-    fun restTemplate(
-        @Qualifier("shortenUrlObjectMapper") objectMapper: ObjectMapper
-    ): RestTemplate {
+    @Bean
+    @ConditionalOnMissingBean(RestTemplate::class)
+    fun restTemplate(objectMapper: ObjectMapper): RestTemplate {
         return RestTemplateBuilder()
             .messageConverters(
                 StringHttpMessageConverter(StandardCharsets.UTF_8),
@@ -49,8 +49,8 @@ class ShortenUrlAutoConfiguration {
 
         @Bean
         fun naverShortUrlService(
-            @Qualifier("shortenUrlRestTemplate") restTemplate: RestTemplate,
-            @Qualifier("shortenUrlObjectMapper") objectMapper: ObjectMapper,
+            restTemplate: RestTemplate,
+            objectMapper: ObjectMapper,
             properties: NaverShortenUrlProperties
         ): NaverShortenUrlService {
             if (properties.clientId.isEmpty()) throw NullPointerException()
@@ -67,8 +67,8 @@ class ShortenUrlAutoConfiguration {
 
         @Bean
         fun bitlyService(
-            @Qualifier("shortenUrlRestTemplate") restTemplate: RestTemplate,
-            @Qualifier("shortenUrlObjectMapper") objectMapper: ObjectMapper,
+            restTemplate: RestTemplate,
+            objectMapper: ObjectMapper,
             properties: BitlyProperties
         ): BitlyService {
             if (properties.accessToken.isEmpty()) throw NullPointerException()
