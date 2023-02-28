@@ -18,8 +18,6 @@ class NaverShortenUrlService(
 ) : ShortenUrlService {
 
     override fun shorten(url: String): String {
-        val uri = "https://openapi.naver.com/v1/util/shorturl"
-
         val headers = HttpHeaders().apply {
             add("X-Naver-Client-Id", properties.clientId)
             add("X-Naver-Client-Secret", properties.clientSecret)
@@ -32,7 +30,7 @@ class NaverShortenUrlService(
 
         val httpEntity = HttpEntity<MultiValueMap<String, String>>(form, headers)
 
-        val json: JsonNode = restTemplate.postForObject(uri, httpEntity)
+        val json: JsonNode = restTemplate.postForObject(properties.uri, httpEntity)
 
         /*
         {

@@ -16,8 +16,6 @@ class BitlyService(
 ) : ShortenUrlService {
 
     override fun shorten(url: String): String {
-        val uri = "https://api-ssl.bitly.com/v4/shorten"
-
         val headers = HttpHeaders().apply {
             setBearerAuth(properties.accessToken)
             contentType = MediaType.APPLICATION_JSON
@@ -27,7 +25,7 @@ class BitlyService(
 
         val httpEntity = HttpEntity<Map<String, String>>(form, headers)
 
-        val json: JsonNode = restTemplate.postForObject(uri, httpEntity)
+        val json: JsonNode = restTemplate.postForObject(properties.uri, httpEntity)
 
         /*
         {

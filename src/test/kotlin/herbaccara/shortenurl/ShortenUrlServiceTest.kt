@@ -35,18 +35,18 @@ class ShortenUrlServiceTest {
     @Test
     fun shortenUrlServices() {
         val shorten = shorten("https://google.com")
-        println()
+        println(shorten)
     }
 
     @Test
     fun naverShortUrlService() {
         val convert = naverShortenUrlService.shorten("https://google.com")
-        println()
+        println(convert)
     }
 
     @Test
     fun btlyService() {
         val convert = btlyService.shorten("https://google.com")
-        println()
+        println(convert)
     }
 }
