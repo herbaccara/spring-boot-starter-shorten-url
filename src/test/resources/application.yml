@@ -1,0 +1,8 @@
+shorten-url:
+  naver:
+    enabled: true
+    client-id:
+    client-secret:
+  bitly:
+    enabled: true
+    access-token:
