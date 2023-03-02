@@ -1,6 +1,5 @@
 package herbaccara.boot.autoconfigure.shortenurl
 
-import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import herbaccara.shortenurl.BitlyService
@@ -22,16 +21,15 @@ import java.util.*
 class ShortenUrlAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean(ObjectMapper::class)
+    @ConditionalOnMissingBean
     fun objectMapper(): ObjectMapper {
         return jacksonObjectMapper().apply {
             findAndRegisterModules()
-            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         }
     }
 
     @Bean
-    @ConditionalOnMissingBean(RestTemplate::class)
+    @ConditionalOnMissingBean
     fun restTemplate(objectMapper: ObjectMapper): RestTemplate {
         return RestTemplateBuilder()
             .messageConverters(
